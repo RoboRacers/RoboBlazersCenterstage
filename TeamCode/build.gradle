@@ -27,7 +27,7 @@ android {
     namespace = 'org.firstinspires.ftc.teamcode'
     externalNativeBuild {
         cmake {
-            path file('src/main/cpp/CMakeLists.txt')
+            path 'src/main/cpp/CMakeLists.txt'
             version '3.18.1'
         }
     }

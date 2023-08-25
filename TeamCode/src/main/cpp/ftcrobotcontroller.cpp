@@ -22,6 +22,6 @@
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_org_firstinspires_ftc_teamcode_cppTest_sayHello(JNIEnv *env, jobject thiz) {
+Java_org_firstinspires_ftc_teamcode_MainActivity_sayHello(JNIEnv *env, jobject thiz) {
     printf("Hello JNI!");
 }

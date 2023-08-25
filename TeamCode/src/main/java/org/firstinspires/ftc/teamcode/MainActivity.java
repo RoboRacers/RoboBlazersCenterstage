@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-public class cppTest {
-
+public class MainActivity {
     private native void sayHello();
 
     static {
@@ -10,6 +9,6 @@ public class cppTest {
 
     public static void main(String[] args) {
 
-        new cppTest().sayHello();
+        new MainActivity().sayHello();
     }
 }
