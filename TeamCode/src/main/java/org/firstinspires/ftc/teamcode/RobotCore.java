@@ -43,7 +43,7 @@ public class RobotCore {
     public HardwareMap hardwareMap;
 
     // Constructor, run during initialization
-    public RobotCore(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2){
+    public RobotCore(HardwareMap hardwareMap){
 
         // Telemetry object commented out because we don't need it
         //telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -67,9 +67,6 @@ public class RobotCore {
         drive = new SampleMecanumDrive(hardwareMap);
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        this.gamepad1 = gamepad1;
-        this.gamepad2 = gamepad2;
 
         this.hardwareMap = hardwareMap;
     }

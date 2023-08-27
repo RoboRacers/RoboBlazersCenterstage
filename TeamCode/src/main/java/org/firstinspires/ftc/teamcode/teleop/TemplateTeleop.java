@@ -23,7 +23,7 @@ public class TemplateTeleop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        RobotCore robot = new RobotCore(hardwareMap, gamepad1, gamepad2);
+        RobotCore robot = new RobotCore(hardwareMap);
 
         while (opModeInInit()) {
             robot.setClawPos(open);
