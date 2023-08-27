@@ -30,30 +30,32 @@ public class MechTest extends LinearOpMode {
         LBMotor = hardwareMap.get(DcMotor.class,"Bl");
 
 
-//        public void mecMove(){
-//
-//            double vertical;
-//            double horizontal;
-//            double pivot;
-//            vertical=-gamepad1.left_stick_y;
-//            horizontal=gamepad1.left_stick_x;
-//            pivot=gamepad1.right_stick_x;
-//
-//
-//            RFMotor. setPower (pivot + (-vertical + horizontal));
-//            RBMotor. setPower (pivot + (-vertical - horizontal));
-//            LFMotor. setPower(pivot + (-vertical - horizontal));
-//            RFMotor. setPower (pivot + (-vertical + horizontal));
 
-//
-//        }
-//
-//        while (opModeInInit()) {
-//        }
-//
-//        while (!isStopRequested()) {
-//
-//        }
+
+        while (opModeInInit()) {
+        }
+
+        while (!isStopRequested()) {
+
+        }
+    }
+
+    public void mecMove(){
+
+        double vertical;
+        double horizontal;
+        double pivot;
+        vertical=-gamepad1.left_stick_y;
+        horizontal=gamepad1.left_stick_x;
+        pivot=gamepad1.right_stick_x;
+
+
+        RFMotor. setPower (pivot + (-vertical + horizontal));
+        RBMotor. setPower (pivot + (-vertical - horizontal));
+        LFMotor. setPower(pivot + (-vertical - horizontal));
+        RFMotor. setPower (pivot + (-vertical + horizontal));
+
+
     }
 
 
