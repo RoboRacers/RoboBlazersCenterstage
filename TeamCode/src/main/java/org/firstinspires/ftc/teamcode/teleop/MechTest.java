@@ -29,6 +29,9 @@ public class MechTest extends LinearOpMode {
         LFMotor = hardwareMap.get(DcMotor.class,"Fl");
         LBMotor = hardwareMap.get(DcMotor.class,"Bl");
 
+        LFMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        LBMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
 
@@ -52,10 +55,10 @@ public class MechTest extends LinearOpMode {
         pivot=gamepad1.right_stick_x;
 
 
-        RFMotor. setPower (pivot -vertical + horizontal);
-        RBMotor. setPower (pivot -vertical - horizontal);
-        LFMotor. setPower(pivot -vertical - horizontal);
-        RFMotor. setPower (pivot -vertical + horizontal);
+        RFMotor.setPower (pivot -vertical + horizontal);
+        RBMotor.setPower (pivot -vertical - horizontal);
+        LFMotor.setPower(pivot -vertical - horizontal);
+        LBMotor.setPower (pivot -vertical + horizontal);
 
 
     }
