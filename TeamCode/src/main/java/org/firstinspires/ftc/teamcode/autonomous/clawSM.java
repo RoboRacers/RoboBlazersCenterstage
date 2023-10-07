@@ -42,6 +42,5 @@ public class clawSM {
                 currentState = clawSM.STATE.DROPPED_WHITE_PIXEL;
                 break;
         }
-
     }
 }
