@@ -18,13 +18,16 @@ public class PixelDetectionByShape {
     PixelDetectionPipeline pixelDetectionPipeline;
     Telemetry telemetry;
 
+
     public PixelDetectionByShape(OpenCvCamera camera, Telemetry telemetry) {
         this.telemetry = telemetry;
+        telemetry.addLine("in PixelDetectionByShape ctor ");
+        //telemetry.update();
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
                 camera.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
-                pixelDetectionPipeline = new PixelDetectionPipeline();
+                pixelDetectionPipeline = new PixelDetectionPipeline(telemetry);
                 camera.setPipeline(pixelDetectionPipeline);
             }
 
@@ -45,58 +48,134 @@ public class PixelDetectionByShape {
         return pixelDetectionPipeline.getCenterY();
     }
 
+    public boolean getFrameFlag() {
+        return pixelDetectionPipeline.getFrameFlag();
+    }
+
+
     static class PixelDetectionPipeline extends OpenCvPipeline {
+        Telemetry telemetry;
+        Mat grayImage = new Mat();
+        Mat edgesImage = new Mat();
+        Mat blurredImage = new Mat();
+
+        Mat binaryImage = new Mat();
+        Mat hierarchy = new Mat();
+        private boolean processedFrame = false;
+        public PixelDetectionPipeline(Telemetry telemetry) {
+            this.telemetry = telemetry;
+            telemetry.addLine("in PixelDetectionPipeline ctor");
+            //telemetry.update();
+        }
+
+
         private double centerX = 0.0;
         private double centerY = 0.0;
+
+        private int printFrame = 0;
+        private Mat oldFrame = null;
+
+        public Mat processFrame_1(Mat frame) {
+
+            if(oldFrame == null)
+            {
+                oldFrame = frame;
+            }
+
+            if(printFrame % 30 == 0) {
+                //print
+                telemetry.addData("printFrame ", printFrame);
+                telemetry.update();
+                oldFrame = frame;
+                printFrame++;
+            }
+            else {
+                printFrame++;
+            }
+
+
+            return oldFrame;
+        }
 
 
         @Override
         public Mat processFrame(Mat frame) {
-            Mat gray = new Mat();
+            long startTime = System.currentTimeMillis();
+
+            processedFrame = false;
+            //telemetry.addLine("in PixelDetectionPipeline processFrame start ");
+
+
+            //telemetry.update();
+            //telemetry.log();
+//            Mat gray = new Mat();
 
             //Converting image to Grayscale
-            Imgproc.cvtColor(frame, gray, Imgproc.COLOR_BGR2GRAY);
+            Imgproc.cvtColor(frame, grayImage, Imgproc.COLOR_BGR2GRAY);
+            //telemetry.addLine("in PixelDetectionPipeline processFrame after GrayScale ");
+            long colorToGrayEndTime = System.currentTimeMillis();
 
 
             //Blurring Graysacled image
-            Imgproc.medianBlur(gray, gray, 5);
+            Imgproc.medianBlur(grayImage, blurredImage, 5);
+            //telemetry.addLine("in PixelDetectionPipeline processFrame after Blur ");
+            long blurTime = System.currentTimeMillis();
 
 
             //Applying Gaussian threshold
-            Imgproc.adaptiveThreshold(gray, gray, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 2);
+            Imgproc.adaptiveThreshold(blurredImage, binaryImage, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 2);
+            //telemetry.addLine("in PixelDetectionPipeline processFrame after Gaussian ");
+            long adapThreshTime = System.currentTimeMillis();
 
-            Mat edges = new Mat();
-
+            //Mat edges = new Mat();
 
             //Applying Canny edge detection
-            Imgproc.Canny(gray, edges, 300, 900);
+            Imgproc.Canny(binaryImage, edgesImage, 175, 255);
+            //telemetry.addLine("in PixelDetectionPipeline processFrame after Edge detection ");
+            //telemetry.addData("in PixelDetectionPipeline processFrame Edge height ", edges.size().height);
+            long edgeDetectTime = System.currentTimeMillis();
+
 
 
             //Finding the contours
             List<MatOfPoint> contours = new ArrayList<>();
-            Imgproc.findContours(edges, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+            Imgproc.findContours(edgesImage, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+            //telemetry.addData("in PixelDetectionPipeline processFrame after find Contour size is  ", contours.size());
+            long findContourTime = System.currentTimeMillis();
 
             List<MatOfPoint> hexContours = new ArrayList<>();
 
 
             //Looping through each contour to detect Hexagon shape
+            int i=0;
             for(MatOfPoint aContour:contours) {
+                //telemetry.addData("in for loop i is : ", i++);
+
                 //draw
                 Scalar scalar = new Scalar(0,128,150,255);
-                Imgproc.drawContours(gray, contours, -1, scalar, 5);
+                //Imgproc.drawContours(gray, contours, -1, scalar, 5);
+
 
                 //get perimeter of contour
                 MatOfPoint2f newC = new MatOfPoint2f( aContour.toArray() );
                 double perimeter = Imgproc.arcLength(newC, true);
 
-                MatOfPoint2f approx = new MatOfPoint2f();
-                Imgproc.approxPolyDP(newC, approx, 0.05, true);
+                MatOfPoint2f approxShape = new MatOfPoint2f();
+                Imgproc.approxPolyDP(newC, approxShape, 0.05, true);
 
-                if(approx.size().height == 6) {
+                //telemetry.addData("approx size is ", approx.size().height);
+                if(approxShape.size().height == 6) {
                     //found hexagon
+                    //telemetry.addLine("FOUND HEXAGON");
                     hexContours.add(aContour);
+
                 }
             }
+
+            long detectHexTime = System.currentTimeMillis();
+
+            //telemetry.addData("after for loop hexContours size is ", hexContours.size());
+            //telemetry.addLine("now finding max index");
 
             //find max area contour from hexContours
             double maxVal = 0;
@@ -110,24 +189,58 @@ public class PixelDetectionByShape {
                     maxValIdx = contourIdx;
                 }
             }
+            //telemetry.addData("maxValIdx is ", maxValIdx);
 
             //draw contour with index maxValIdx
-            Imgproc.drawContours(frame, hexContours, maxValIdx, new Scalar(0,255,0), 5);
+            //telemetry.addLine("trying to draw contour with maxValIdx");
+            if(hexContours.size() > 0) {
+                //telemetry.addLine("drawing");
+                //Imgproc.drawContours(frame, hexContours, maxValIdx, new Scalar(0,255,0), 5);
+            } else {
+                //telemetry.addLine("NOT drawing");
+            }
+            //telemetry.update();
 
 
             //Finding the center of the max hexagon
-            Moments M = Imgproc.moments(hexContours.get(maxValIdx));
-            if (M.get_m00() != 0) {
-                centerX = M.get_m10() / M.get_m00();
-                centerY = M.get_m01() / M.get_m00();
-            } else {
-                // Handle the case where the contour has no area
-                centerX = 0.0;
-                centerY = 0.0;
-            }
-
+            /** TEMP COMMENT
+             Moments M = Imgproc.moments(hexContours.get(maxValIdx));
+             if (M.get_m00() != 0) {
+             centerX = M.get_m10() / M.get_m00();
+             centerY = M.get_m01() / M.get_m00();
+             } else {
+             // Handle the case where the contour has no area
+             centerX = 0.0;
+             centerY = 0.0;
+             }
+             */
+            long computeHexCGTime = System.currentTimeMillis();
 
             // Return the processed frame (not really needed for your purpose)
+            processedFrame = true;
+
+            long totalElapsedTime = System.currentTimeMillis() - startTime;
+            long elapsedColorToGrayTime = colorToGrayEndTime - startTime;
+            long blurElapsedTime =  blurTime - colorToGrayEndTime;
+            long  adpThreshElapsedTime = adapThreshTime - blurTime;
+            long edgeDetectElapsedTime = edgeDetectTime - adapThreshTime;
+            long findContourElapsedTime = findContourTime - edgeDetectTime;
+            long detectHexElapsedTime = detectHexTime - findContourTime;
+            long computeHexCGElapsedTime = computeHexCGTime - detectHexTime;
+
+            telemetry.addData("Total Elapsed Time: ", totalElapsedTime);
+            telemetry.addData("elapsedColorToGrayTime Elapsed Time: ", elapsedColorToGrayTime);
+            telemetry.addData("blurElapsedTime Elapsed Time: ", blurElapsedTime);
+            telemetry.addData("adpThreshElapsedTime Elapsed Time: ", adpThreshElapsedTime);
+            telemetry.addData("edgeDetectElapsedTime Elapsed Time: ", edgeDetectElapsedTime);
+            telemetry.addData("findContourElapsedTime Elapsed Time: ", findContourElapsedTime);
+            telemetry.addData("detectHexElapsedTime Elapsed Time: ", detectHexElapsedTime);
+            telemetry.addData("computeHexCGElapsedTime Elapsed Time: ", computeHexCGElapsedTime);
+
+
+
+            telemetry.update();
+
             return frame;
         }
 
@@ -137,6 +250,10 @@ public class PixelDetectionByShape {
 
         public double getCenterY() {
             return centerY;
+        }
+
+        public boolean getFrameFlag() {
+            return processedFrame;
         }
     }
 }

@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@TeleOp(name="Pixel Detect OpMode", group="Linear Opmode")
+@TeleOp(name="Pixel Detect by Shape OpMode", group="Linear Opmode")
 public class PixelDetectByShapeOpmode extends LinearOpMode {
 
     @Override
@@ -20,17 +20,25 @@ public class PixelDetectByShapeOpmode extends LinearOpMode {
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.
                 get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        PixelDetection myPixelDetection = new PixelDetection(camera, telemetry);
+        telemetry.addData("here in PixelDetectByShapeOpmode:", 1);
+        //telemetry.update();
+        PixelDetectionByShape myPixelDetectionByShape = new PixelDetectionByShape(camera, telemetry);
+
+        telemetry.addLine("here in PixelDetectByShapeOpmode after creating myPixelDetectionByShape");
 
         double pixelCenterX = 0.0;
         double pixelCenterY = 0.0;
 
         waitForStart();
+        telemetry.addLine("after wait for start");
 
-        // Run until the end of the match (driver presses STOP)
+        // Run until the end of the match (driver presses STOP;
+        int i = 0;
         while (opModeIsActive()) {
-            pixelCenterX = myPixelDetection.getCenterX();
-            pixelCenterY = myPixelDetection.getCenterY();
+            // telemetry.addData("here in while............:", i++);
+            //telemetry.update();
+            pixelCenterX = myPixelDetectionByShape.getCenterX();
+            pixelCenterY = myPixelDetectionByShape.getCenterY();
 
             int DisplayCenterX = 320;
             int DisplayCenterY = 240;
@@ -50,12 +58,12 @@ public class PixelDetectByShapeOpmode extends LinearOpMode {
                 directionY = "down";
             }
 
-            telemetry.addData(directionX, directionY);
+            // telemetry.addData(directionX, directionY);
 
-            telemetry.addData("Pixel Center X = ", pixelCenterX);
-            telemetry.addData("Pixel Center Y = ", pixelCenterY);
-            telemetry.update();
-
+            //   telemetry.addData("Pixel Center X = ", pixelCenterX);
+            // telemetry.addData("Pixel Center Y = ", pixelCenterY);
+            //telemetry.update();
         }
+        //telemetry.update();
     }
 }
