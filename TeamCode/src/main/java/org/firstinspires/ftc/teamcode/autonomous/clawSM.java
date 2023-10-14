@@ -43,4 +43,10 @@ public class clawSM {
                 break;
         }
     }
+
+    public void update() {
+        switch (currentState) {
+
+        }
+    }
 }

@@ -73,6 +73,8 @@ public class claw_sm_test extends LinearOpMode {
                 telemetry.addData("dpad down pressed", mysm.getState());
                 telemetry.update();
             }
+
+            mysm.update();
         }
     }
 }
