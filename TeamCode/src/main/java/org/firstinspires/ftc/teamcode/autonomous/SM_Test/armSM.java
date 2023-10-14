@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.State_Machines;
+package org.firstinspires.ftc.teamcode.autonomous.SM_Test;
 
 public class armSM {
 
@@ -15,20 +15,20 @@ public class armSM {
 
     STATE currentState;
 
-    public STATE getState() {
+    public armSM.STATE getState() {
         return currentState;
     }
 
-    public void transition(EVENT event) {
+    public void transition(armSM.EVENT event) {
         switch (event) {
             case GAME_START:
-                currentState = STATE.FOLDED_IN;
+                currentState = armSM.STATE.FOLDED_IN;
                 break;
             case DETECTED_PIXEL_TO_GRAB:
-                currentState = STATE.REACHED_OUT;
+                currentState = armSM.STATE.REACHED_OUT;
                 break;
             case DETECTED_BACKDROP_DROP_PIXEL:
-                currentState = STATE.REACHED_OUT;
+                currentState = armSM.STATE.REACHED_OUT;
                 break;
         }
     }
