@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous;
+package org.firstinspires.ftc.teamcode.State_Machines;
 
 public class clawSM {
 
@@ -27,19 +27,19 @@ public class clawSM {
     public void transition(EVENT event) {
         switch (event) {
             case GAME_START:
-                currentState = clawSM.STATE.HAS_START_PY_PIXELS;
+                currentState = STATE.HAS_START_PY_PIXELS;
                 break;
             case DETECTED_TEAM_PROP:
-                currentState = clawSM.STATE.DROPPED_PURPLE_PIXEL;
+                currentState = STATE.DROPPED_PURPLE_PIXEL;
                 break;
             case IDENTIFIED_APRIL_TAG:
-                currentState = clawSM.STATE.DROPPED_YELLOW_PIXEL;
+                currentState = STATE.DROPPED_YELLOW_PIXEL;
                 break;
             case REACHED_STARTER_STACK:
-                currentState = clawSM.STATE.HAS_WHITE_PIXELS;
+                currentState = STATE.HAS_WHITE_PIXELS;
                 break;
             case REACHED_BACKDROP:
-                currentState = clawSM.STATE.DROPPED_WHITE_PIXEL;
+                currentState = STATE.DROPPED_WHITE_PIXEL;
                 break;
         }
     }

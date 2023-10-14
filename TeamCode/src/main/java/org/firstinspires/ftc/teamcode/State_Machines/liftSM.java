@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous;
+package org.firstinspires.ftc.teamcode.State_Machines;
 
 public class liftSM {
 
@@ -16,22 +16,22 @@ public class liftSM {
     }
 
 
-    liftSM.STATE currentState;
+    STATE currentState;
 
-    public liftSM.STATE getState() {
+    public STATE getState() {
         return currentState;
     }
 
     public void transition(EVENT event) {
         switch (event) {
             case IS_ENDGAME:
-                currentState = liftSM.STATE.LIFT_OPEN_UP;
+                currentState = STATE.LIFT_OPEN_UP;
                 break;
             case ROBOT_UNDER_TRUSS:
-                currentState = liftSM.STATE.LIFT_GRABBED_TRUSS;
+                currentState = STATE.LIFT_GRABBED_TRUSS;
                 break;
             case ROBOT_HANGING:
-                currentState = liftSM.STATE.LIFT_RETRACTED;
+                currentState = STATE.LIFT_RETRACTED;
                 break;
         }
     }

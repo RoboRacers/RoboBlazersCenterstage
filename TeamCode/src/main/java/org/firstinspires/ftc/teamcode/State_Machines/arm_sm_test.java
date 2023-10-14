@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous;/* Copyright (c) 2017 FIRST. All rights reserved.
+package org.firstinspires.ftc.teamcode.State_Machines;/* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted (subject to the limitations in the disclaimer below) provided that
@@ -32,12 +32,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="SM test", group="SM OpMode")
-public class launcher_sm_test extends LinearOpMode {
+public class arm_sm_test extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
-        launcherSM mysm = new launcherSM();
+        armSM mysm = new armSM();
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -49,13 +49,18 @@ public class launcher_sm_test extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             if (gamepad1.a) {
-                mysm.transition(launcherSM.EVENT.GAME_START);
+                mysm.transition(armSM.EVENT.GAME_START);
                 telemetry.addData("a pressed", mysm.getState());
                 telemetry.update();
             }
             else if (gamepad1.b) {
-                mysm.transition(launcherSM.EVENT.DRONE_LAUNCH_BUTTON_PRESSED);
+                mysm.transition(armSM.EVENT.DETECTED_PIXEL_TO_GRAB);
                 telemetry.addData("b pressed", mysm.getState());
+                telemetry.update();
+            }
+            else if (gamepad1.x) {
+                mysm.transition(armSM.EVENT.DETECTED_BACKDROP_DROP_PIXEL);
+                telemetry.addData("x pressed", mysm.getState());
                 telemetry.update();
             }
         }

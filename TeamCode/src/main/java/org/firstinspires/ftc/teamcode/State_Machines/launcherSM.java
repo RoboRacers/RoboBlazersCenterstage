@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous;
+package org.firstinspires.ftc.teamcode.State_Machines;
 
 public class launcherSM {
 
@@ -14,17 +14,17 @@ public class launcherSM {
 
     STATE currentState;
 
-    public launcherSM.STATE getState() {
+    public STATE getState() {
         return currentState;
     }
 
     public void transition(EVENT event) {
         switch (event) {
             case GAME_START:
-                currentState = launcherSM.STATE.DRONE_LAUNCHER_LOADED;
+                currentState = STATE.DRONE_LAUNCHER_LOADED;
                 break;
             case DRONE_LAUNCH_BUTTON_PRESSED:
-                currentState = launcherSM.STATE.DRONE_LAUNCHED;
+                currentState = STATE.DRONE_LAUNCHED;
                 break;
         }
     }
