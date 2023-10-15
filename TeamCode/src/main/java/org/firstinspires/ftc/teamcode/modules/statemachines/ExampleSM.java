@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.modules.statemachines;
 
+import org.firstinspires.ftc.teamcode.autonomous.SM_Test.SubSystem.arm_ss;
 import org.firstinspires.ftc.teamcode.modules.subsystems.ExampleSubsystem;
 
 /**
@@ -40,7 +41,7 @@ public class ExampleSM implements StateMachine {
      * Takes in the subsystem object that this state machine controls.
      * @param exampleSubsystem
      */
-    public ExampleSM(ExampleSubsystem exampleSubsystem) {
+    public ExampleSM(arm_ss exampleSubsystem) {
         this.exampleSubsystem = exampleSubsystem;
     }
 
