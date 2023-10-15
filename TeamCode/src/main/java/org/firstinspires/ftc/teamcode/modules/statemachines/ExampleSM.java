@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.modules.statemachines;
 
 import org.firstinspires.ftc.teamcode.autonomous.SM_Test.SubSystem.arm_ss;
+import org.firstinspires.ftc.teamcode.autonomous.SM_Test.SubSystem.drive_ss;
 import org.firstinspires.ftc.teamcode.modules.subsystems.ExampleSubsystem;
 
 /**
@@ -17,6 +18,9 @@ public class ExampleSM implements StateMachine {
      * The current state of this subsystem.
      */
     STATE currentState;
+
+    public ExampleSM(drive_ss launcher_ss) {
+    }
 
 
     /**
