@@ -31,7 +31,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="SM test", group="SM OpMode")
+@TeleOp(name="launcher test", group="SM OpMode")
 public class launcher_sm_test extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 

@@ -30,7 +30,7 @@ public class Lift extends Subsystem {
         testMotor = hardwareMap.get(DcMotor.class, "leftLift");
 
         // Setup the state machine associated with
-        lift = new Lift(this);
+        // lift = new Lift(this);
     }
 
     /*
