@@ -32,7 +32,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="SM test", group="SM OpMode")
-public class arm_sm_test extends LinearOpMode {
+public class arm_test extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override

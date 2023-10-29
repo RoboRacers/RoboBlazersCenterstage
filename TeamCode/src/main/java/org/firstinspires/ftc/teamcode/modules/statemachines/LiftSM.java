@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.modules.statemachines;
 
 import org.firstinspires.ftc.teamcode.modules.subsystems.ExampleSubsystem;
+import org.firstinspires.ftc.teamcode.modules.subsystems.Lift;
 
 /**
  * Class that outlines an example state machine.
@@ -40,7 +41,7 @@ public class LiftSM implements StateMachine {
     /**
      * The constructor function for this class.
      * Takes in the subsystem object that this state machine controls.
-     * @param exampleSubsystem
+     * @param
      */
     public LiftSM(Lift lift) {
         this.lift = lift;
