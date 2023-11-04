@@ -35,4 +35,22 @@ public class liftSM {
                 break;
         }
     }
+
+    public void update() {
+        switch (currentState) {
+            case LIFT_OPEN_UP:
+
+                break;
+        }
+        switch (currentState) {
+            case LIFT_GRABBED_TRUSS:
+
+                break;
+        }
+        switch (currentState) {
+            case LIFT_RETRACTED:
+
+                break;
+        }
+    }
 }

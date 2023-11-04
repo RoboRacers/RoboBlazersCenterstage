@@ -33,4 +33,11 @@ public class armSM {
         }
     }
 
+    public void update(){
+        switch (currentState) {
+            case REACHED_OUT:
+
+                break;
+        }
+    }
 }
