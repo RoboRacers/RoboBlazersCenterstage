@@ -20,6 +20,7 @@ public class Launcher extends LinearOpMode{
         boolean previousa = false;
 
         waitForStart();
+
         while(opModeIsActive()) {
             if(gamepad1.a && press == false) {
                 launcher.setPower(0.1);
