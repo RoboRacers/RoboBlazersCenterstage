@@ -4,10 +4,10 @@ public class clawSM {
 
     public enum STATE {
         HAS_START_PY_PIXELS,
-        DROPPED_PURPLE_PIXEL,
-        DROPPED_YELLOW_PIXEL,
+        DROPPING_PURPLE_PIXEL,
+        DROPPING_YELLOW_PIXEL,
         HAS_WHITE_PIXELS,
-        DROPPED_WHITE_PIXEL,
+        DROPPING_WHITE_PIXEL,
     }
 
     public enum EVENT {
@@ -30,23 +30,37 @@ public class clawSM {
                 currentState = clawSM.STATE.HAS_START_PY_PIXELS;
                 break;
             case DETECTED_TEAM_PROP:
-                currentState = clawSM.STATE.DROPPED_PURPLE_PIXEL;
+                currentState = clawSM.STATE.DROPPING_PURPLE_PIXEL;
                 break;
             case IDENTIFIED_APRIL_TAG:
-                currentState = clawSM.STATE.DROPPED_YELLOW_PIXEL;
+                currentState = clawSM.STATE.DROPPING_YELLOW_PIXEL;
                 break;
             case REACHED_STARTER_STACK:
                 currentState = clawSM.STATE.HAS_WHITE_PIXELS;
                 break;
             case REACHED_BACKDROP:
-                currentState = clawSM.STATE.DROPPED_WHITE_PIXEL;
+                currentState = clawSM.STATE.DROPPING_WHITE_PIXEL;
                 break;
         }
     }
 
     public void update() {
         switch (currentState) {
+            case HAS_START_PY_PIXELS:
 
+                break;
+            case DROPPING_PURPLE_PIXEL:
+
+                break;
+            case DROPPING_YELLOW_PIXEL:
+
+                break;
+            case HAS_WHITE_PIXELS:
+
+                break;
+            case DROPPING_WHITE_PIXEL:
+                
+                break;
         }
     }
 }

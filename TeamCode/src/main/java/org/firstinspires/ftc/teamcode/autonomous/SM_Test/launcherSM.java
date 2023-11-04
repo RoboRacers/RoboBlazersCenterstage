@@ -28,4 +28,15 @@ public class launcherSM {
                 break;
         }
     }
+
+    public void update() {
+        switch (currentState) {
+            case DRONE_LAUNCHED:
+
+                break;
+            case DRONE_LAUNCHER_LOADED:
+
+                break;
+        }
+    }
 }
