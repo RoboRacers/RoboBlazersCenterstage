@@ -64,7 +64,7 @@ public class PixelDetectionByShape {
         private boolean processedFrame = false;
         public PixelDetectionPipeline(Telemetry telemetry) {
             this.telemetry = telemetry;
-            telemetry.addLine("in PixelDetectionPipeline ctor");
+            telemetry.addLine("in PropDetectionPipeline ctor");
             //telemetry.update();
         }
 
@@ -103,7 +103,7 @@ public class PixelDetectionByShape {
             long startTime = System.currentTimeMillis();
 
             processedFrame = false;
-            //telemetry.addLine("in PixelDetectionPipeline processFrame start ");
+            //telemetry.addLine("in PropDetectionPipeline processFrame start ");
 
 
             //telemetry.update();
@@ -112,27 +112,27 @@ public class PixelDetectionByShape {
 
             //Converting image to Grayscale
             Imgproc.cvtColor(frame, grayImage, Imgproc.COLOR_BGR2GRAY);
-            //telemetry.addLine("in PixelDetectionPipeline processFrame after GrayScale ");
+            //telemetry.addLine("in PropDetectionPipeline processFrame after GrayScale ");
             long colorToGrayEndTime = System.currentTimeMillis();
 
 
             //Blurring Graysacled image
             Imgproc.medianBlur(grayImage, blurredImage, 5);
-            //telemetry.addLine("in PixelDetectionPipeline processFrame after Blur ");
+            //telemetry.addLine("in PropDetectionPipeline processFrame after Blur ");
             long blurTime = System.currentTimeMillis();
 
 
             //Applying Gaussian threshold
             Imgproc.adaptiveThreshold(blurredImage, binaryImage, 255, Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C, Imgproc.THRESH_BINARY, 11, 2);
-            //telemetry.addLine("in PixelDetectionPipeline processFrame after Gaussian ");
+            //telemetry.addLine("in PropDetectionPipeline processFrame after Gaussian ");
             long adapThreshTime = System.currentTimeMillis();
 
             //Mat edges = new Mat();
 
             //Applying Canny edge detection
             Imgproc.Canny(binaryImage, edgesImage, 175, 255);
-            //telemetry.addLine("in PixelDetectionPipeline processFrame after Edge detection ");
-            //telemetry.addData("in PixelDetectionPipeline processFrame Edge height ", edges.size().height);
+            //telemetry.addLine("in PropDetectionPipeline processFrame after Edge detection ");
+            //telemetry.addData("in PropDetectionPipeline processFrame Edge height ", edges.size().height);
             long edgeDetectTime = System.currentTimeMillis();
 
 
@@ -140,7 +140,7 @@ public class PixelDetectionByShape {
             //Finding the contours
             List<MatOfPoint> contours = new ArrayList<>();
             Imgproc.findContours(edgesImage, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-            //telemetry.addData("in PixelDetectionPipeline processFrame after find Contour size is  ", contours.size());
+            //telemetry.addData("in PropDetectionPipeline processFrame after find Contour size is  ", contours.size());
             long findContourTime = System.currentTimeMillis();
 
             List<MatOfPoint> hexContours = new ArrayList<>();
