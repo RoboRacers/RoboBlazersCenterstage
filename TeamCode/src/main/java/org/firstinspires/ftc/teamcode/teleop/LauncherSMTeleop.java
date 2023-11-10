@@ -4,11 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class LauncherSMTeleop extends LinearOpMode{
     public enum STATE {
-        DRIVER_PRESSED_A_AND_DPAD_UP,
+        DRONE_LAUNCHED,
     }
 
     public enum EVENT {
-        DRONE_LAUNCHED,
+        DRIVER_PRESSED_A_AND_DPAD_UP,
     }
 
     STATE currentState;
@@ -16,15 +16,15 @@ public class LauncherSMTeleop extends LinearOpMode{
 
     public void transition(EVENT event) {
         switch (event) {
-            case DRONE_LAUNCHED:
-                currentState = STATE.DRIVER_PRESSED_A_AND_DPAD_UP;
+            case DRIVER_PRESSED_A_AND_DPAD_UP:
+                currentState = STATE.DRONE_LAUNCHED;
                 break;
         }
     }
 
     public void update() {
         switch (currentState) {
-            case DRIVER_PRESSED_A_AND_DPAD_UP:
+            case DRONE_LAUNCHED:
                 break;
         }
     }
@@ -33,7 +33,7 @@ public class LauncherSMTeleop extends LinearOpMode{
 
         while(opModeIsActive()) {
             if(gamepad2.a && gamepad2.dpad_up){
-                transition(EVENT.DRONE_LAUNCHED);
+                transition(EVENT.DRIVER_PRESSED_A_AND_DPAD_UP);
                 telemetry.addData("A and dpad up is pressed, Drone Launched","Drone Launched");
                 telemetry.update();
             }

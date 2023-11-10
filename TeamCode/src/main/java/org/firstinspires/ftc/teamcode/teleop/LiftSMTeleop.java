@@ -4,11 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class LiftSMTeleop extends LinearOpMode{
     public enum STATE {
-        A_1DPAD_Up,
+        LIFT_UP,
     }
 
     public enum EVENT {
-        LIFT_UP,
+        A_1DPAD_Up,
     }
 
     STATE currentState;
@@ -16,15 +16,15 @@ public class LiftSMTeleop extends LinearOpMode{
 
     public void transition(EVENT event) {
         switch (event) {
-            case LIFT_UP:
-                currentState = STATE.A_1DPAD_Up;
+            case A_1DPAD_Up:
+                currentState = STATE.LIFT_UP;
                 break;
         }
     }
 
     public void update() {
         switch (currentState) {
-            case A_1DPAD_Up:
+            case LIFT_UP:
                 break;
         }
     }
@@ -33,7 +33,7 @@ public class LiftSMTeleop extends LinearOpMode{
 
         while(opModeIsActive()) {
             if(gamepad1.a && gamepad1.dpad_up){
-                transition(EVENT.LIFT_UP);
+                transition(EVENT.A_1DPAD_Up);
                 telemetry.addData("A and dpad up is pressed, Lift Up","Lift Up");
                 telemetry.update();
             }
