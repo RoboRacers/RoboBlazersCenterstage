@@ -20,7 +20,6 @@ public class armSMTeleop extends LinearOpMode {
     }
 
     STATE currentState;
-    EVENT currentEvent;
 
     public armSMTeleop.STATE getState() {
         return currentState;
@@ -62,22 +61,22 @@ public class armSMTeleop extends LinearOpMode {
         while(opModeIsActive()) {
             if(gamepad2.left_stick_y < 0 ){
                 transition(armSMTeleop.EVENT.TWO_LJ_DOWN);
-                telemetry.addData("Left Trigger Pressed, Claw Open","Claw Open");
+                telemetry.addData("Left joystick down, arm forward","arm forward");
                 telemetry.update();
             }
             else if(gamepad2.left_stick_y > 0){
                 transition(armSMTeleop.EVENT.TWO_LJ_UP);
-                telemetry.addData("Right Trigger Pressed, Claw Closed","Claw Closed");
+                telemetry.addData("Left joystick up, arm back","arm back");
                 telemetry.update();
             }
             else if(gamepad2.right_trigger > 0){
                 transition(armSMTeleop.EVENT.TWO_RJ_UP);
-                telemetry.addData("Right Trigger Pressed, Claw Closed","Claw Closed");
+                telemetry.addData("Right joystick up, arm link 1 forward","arm link 1 forward");
                 telemetry.update();
             }
             else if(gamepad2.right_trigger > 0){
                 transition(armSMTeleop.EVENT.TWO_RJ_DOWN);
-                telemetry.addData("Right Trigger Pressed, Claw Closed","Claw Closed");
+                telemetry.addData("Right joystick down, arm link 1 back","arm link 1 back");
                 telemetry.update();
             }
         }
