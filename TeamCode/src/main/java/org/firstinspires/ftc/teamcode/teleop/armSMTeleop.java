@@ -56,8 +56,30 @@ public class armSMTeleop extends LinearOpMode {
         }
     }
 
-    public void runOPMode() {
+    public void runOpMode() {
         waitForStart();
 
+        while(opModeIsActive()) {
+            if(gamepad2.left_stick_y < 0 ){
+                transition(armSMTeleop.EVENT.TWO_LJ_DOWN);
+                telemetry.addData("Left Trigger Pressed, Claw Open","Claw Open");
+                telemetry.update();
+            }
+            else if(gamepad2.left_stick_y > 0){
+                transition(armSMTeleop.EVENT.TWO_LJ_UP);
+                telemetry.addData("Right Trigger Pressed, Claw Closed","Claw Closed");
+                telemetry.update();
+            }
+            else if(gamepad2.right_trigger > 0){
+                transition(armSMTeleop.EVENT.TWO_RJ_UP);
+                telemetry.addData("Right Trigger Pressed, Claw Closed","Claw Closed");
+                telemetry.update();
+            }
+            else if(gamepad2.right_trigger > 0){
+                transition(armSMTeleop.EVENT.TWO_RJ_DOWN);
+                telemetry.addData("Right Trigger Pressed, Claw Closed","Claw Closed");
+                telemetry.update();
+            }
+        }
     }
 }
