@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RobotCore;
+import org.firstinspires.ftc.teamcode.modules.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.modules.trajectorysequence.TrajectorySequence;
 
 // Localization is doesn't show drift, follower if it does
@@ -20,9 +21,9 @@ public class ExampleAutoop extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        RobotCore robot = new RobotCore(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence traj2 = robot.drive.trajectorySequenceBuilder(new Pose2d(12.75, -58.81, Math.toRadians(86.99)))
+        TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d(12.75, -58.81, Math.toRadians(86.99)))
                 .splineTo(new Vector2d(16.44, -40.18), Math.toRadians(168.93))
                 .splineTo(new Vector2d(-36.13, -38.77), Math.toRadians(88.26))
                 .splineTo(new Vector2d(-30.68, -11.87), Math.toRadians(-0.90))
@@ -39,7 +40,7 @@ public class ExampleAutoop extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        robot.drive.followTrajectorySequence(traj2);
+        drive.followTrajectorySequence(traj2);
 
 
     }
