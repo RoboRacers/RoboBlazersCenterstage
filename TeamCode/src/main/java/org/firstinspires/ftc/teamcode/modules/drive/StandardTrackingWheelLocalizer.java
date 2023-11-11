@@ -13,11 +13,15 @@ import java.util.List;
 
 @Config
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
+
+    //REV THROUGH BORE encoder
     public static double TICKS_PER_REV = 8192;
-    public static double WHEEL_RADIUS = 0.6889764;
+
+    //https://www.studica.com/studica-robotics/38mm-omni-wheel
+    public static double WHEEL_RADIUS = 0.748031;
     public static double GEAR_RATIO = 1;
-    public static double LATERAL_DISTANCE = 21.9;
-    public static double FORWARD_OFFSET = -6;
+    public static double LATERAL_DISTANCE = 9.25;
+    public static double FORWARD_OFFSET = -7.5;
     public static double X_MULTIPLIER = 1.0256410256;
     public static double Y_MULTIPLIER = 1.0322580645;
     private Encoder leftEncoder, rightEncoder, frontEncoder;
@@ -28,10 +32,12 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
                 new Pose2d(FORWARD_OFFSET, -1, Math.toRadians(90)) // front
         ));
 
-        leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "Br")); // Port Number 3
-        rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "Fr")); // Port Number 2
-        frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "Bl")); // Port Number 1
+        leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "Fl")); // Port Number 0
+        rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "Bl")); // Port Number 2
+        frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "Fr")); // Port Number 1
+
         leftEncoder.setDirection(Encoder.Direction.REVERSE);
+        //TBD to check
 
     }
 
