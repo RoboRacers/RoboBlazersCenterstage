@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -20,6 +21,7 @@ public class TemplateAutoop extends LinearOpMode {
 
         RobotCore robot = new RobotCore(hardwareMap);
 
+        Trajectories.init
 
 
         while(!isStopRequested() && !opModeIsActive()) {
