@@ -20,7 +20,6 @@ import org.firstinspires.ftc.teamcode.modules.trajectorysequence.TrajectorySeque
 
 import java.util.Arrays;
 
-// Localization is doesn't show drift, follower if it does
 
 @Config
 @Autonomous(name = "Robotblazers path test", group = "23692")
@@ -31,7 +30,7 @@ public class TemplateAutoop extends LinearOpMode {
     @Override
     public void runOpMode() {
         drive = new SampleMecanumDrive(hardwareMap);
-        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 TrajectoryVelocityConstraint slowCont = new MinVelocityConstraint(Arrays.asList(
@@ -41,11 +40,8 @@ TrajectoryVelocityConstraint slowCont = new MinVelocityConstraint(Arrays.asList(
         // RobotCore robot = new RobotCore(hardwareMap);
         TrajectorySequence traj2 = drive.trajectorySequenceBuilder(
                 new Pose2d(29.80, 40.70, Math.toRadians(-86.21)))
-                .lineTo( new Vector2d(34.80, 40.70),
-                //.setVelConstraint(slowCont)
-                //SampleMecanumDrive.getVelocityConstraint(5, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-                SampleMecanumDrive.getVelocityConstraint(5, DriveConstants.MAX_ANG_VEL,DriveConstants.TRACK_WIDTH),
-                SampleMecanumDrive.getAccelerationConstraint(5))
+                .lineTo( new Vector2d(29.8001, 40.70))
+
                 .build();
 
         while(!isStopRequested() && !opModeIsActive()) {
