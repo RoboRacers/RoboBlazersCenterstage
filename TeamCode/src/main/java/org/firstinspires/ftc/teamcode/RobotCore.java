@@ -45,11 +45,11 @@ public class RobotCore {
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        deposit = new Deposit(hardwareMap);
+        //deposit = new Deposit(hardwareMap);
 
-        intake = new Intake(hardwareMap);
+        //intake = new Intake(hardwareMap);
 
-        launcher = new Launcher(hardwareMap);
+        //launcher = new Launcher(hardwareMap);
 
     }
 
